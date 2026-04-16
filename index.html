@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MRM Technologies</title>
+    <meta
+      name="description"
+      content="MRM Technologies builds AI, XR, and software tools for creative and immersive products."
+    />
+    <style>
+      :root {
+        --bg: #0b0d10;
+        --panel: #12161b;
+        --text: #f3f5f7;
+        --muted: #a7b0ba;
+        --line: #232a33;
+        --accent: #d9e2ff;
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        background: linear-gradient(180deg, #0b0d10 0%, #0f1318 100%);
+        color: var(--text);
+        line-height: 1.6;
+      }
+
+      a {
+        color: var(--accent);
+        text-decoration: none;
+      }
+
+      a:hover { text-decoration: underline; }
+
+      .wrap {
+        width: min(960px, calc(100% - 32px));
+        margin: 0 auto;
+      }
+
+      .hero {
+        min-height: 70vh;
+        display: flex;
+        align-items: center;
+        padding: 72px 0 48px;
+      }
+
+      .eyebrow {
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.14em;
+        font-size: 12px;
+        margin-bottom: 14px;
+      }
+
+      h1 {
+        font-size: clamp(42px, 8vw, 76px);
+        line-height: 0.95;
+        margin: 0 0 20px;
+        letter-spacing: -0.04em;
+      }
+
+      .lead {
+        font-size: clamp(18px, 2.5vw, 24px);
+        color: var(--muted);
+        max-width: 720px;
+        margin: 0 0 28px;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 16px;
+        margin: 28px 0 0;
+      }
+
+      .card {
+        background: rgba(255,255,255,0.03);
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        padding: 20px;
+      }
+
+      .card h3 {
+        margin: 0 0 8px;
+        font-size: 18px;
+      }
+
+      .card p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      section {
+        padding: 28px 0 18px;
+        border-top: 1px solid var(--line);
+      }
+
+      h2 {
+        font-size: 22px;
+        margin: 0 0 12px;
+        letter-spacing: -0.02em;
+      }
+
+      .body-text {
+        max-width: 760px;
+        color: var(--muted);
+        font-size: 17px;
+      }
+
+      .list {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px 20px;
+        padding: 0;
+        margin: 18px 0 0;
+        list-style: none;
+      }
+
+      .list li {
+        padding: 14px 16px;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        background: rgba(255,255,255,0.02);
+      }
+
+      footer {
+        padding: 36px 0 56px;
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      @media (max-width: 760px) {
+        .grid, .list { grid-template-columns: 1fr; }
+        .hero { min-height: auto; padding-top: 56px; }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="wrap">
+      <section class="hero" style="border-top: none;">
+        <div>
+          <div class="eyebrow">MRM Technologies</div>
+          <h1>AI, XR, and software for immersive and creative work.</h1>
+          <p class="lead">
+            MRM Technologies builds software tools, intelligent workflows, and immersive applications
+            for digital products and future-facing experiences.
+          </p>
+
+          <div class="grid">
+            <div class="card">
+              <h3>AI Tools</h3>
+              <p>Systems and workflows that support creative production, automation, and intelligent interaction.</p>
+            </div>
+            <div class="card">
+              <h3>XR Experiences</h3>
+              <p>Interactive spatial applications across VR, AR, and mixed reality environments.</p>
+            </div>
+            <div class="card">
+              <h3>Software Products</h3>
+              <p>Web, mobile, and experimental software for modern digital experiences.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>About</h2>
+        <p class="body-text">
+          We work at the intersection of software, immersive media, and intelligent systems. Our focus
+          is on building tools and products that make digital creation, interaction, and exploration more intuitive.
+        </p>
+      </section>
+
+      <section>
+        <h2>What We Build</h2>
+        <ul class="list">
+          <li>AI-powered creative tools</li>
+          <li>XR and immersive applications</li>
+          <li>Software for web and mobile platforms</li>
+          <li>Experimental product prototypes</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Contact</h2>
+        <p class="body-text">
+          For inquiries, collaborations, or product updates, contact:
+          <a href="mailto:vj.liu@outlook.com">hello@mrmtechnologies.com</a>
+        </p>
+      </section>
+
+      <footer>
+        © 2026 MRM Technologies LLC. Website under development.
+      </footer>
+    </main>
+  </body>
+</html>
