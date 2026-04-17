@@ -6,161 +6,311 @@
     <title>MRM Technologies</title>
     <meta
       name="description"
-      content="MRM Technologies builds AI, XR, and software tools for creative and immersive products."
+      content="MRM Technologies builds intelligent systems, XR, and software tools for creative and immersive products."
     />
     <style>
       :root {
         --bg: #0b0d10;
-        --panel: #12161b;
+        --panel: rgba(255, 255, 255, 0.02);
+        --panel-hover: rgba(255, 255, 255, 0.05);
         --text: #f3f5f7;
-        --muted: #a7b0ba;
-        --line: #232a33;
+        --muted: #8a95a5;
+        --line: rgba(255, 255, 255, 0.08);
         --accent: #d9e2ff;
+        --accent-glow: rgba(217, 226, 255, 0.15);
       }
 
-      * { box-sizing: border-box; }
+      * {
+        box-sizing: border-box;
+      }
 
       body {
         margin: 0;
-        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-        background: linear-gradient(180deg, #0b0d10 0%, #0f1318 100%);
+        font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        background-color: var(--bg);
         color: var(--text);
         line-height: 1.6;
+        overflow-x: hidden;
+      }
+
+      /* Cinematic Spotlight Background */
+      .bg-glow {
+        position: absolute;
+        top: -20vh;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100vw;
+        height: 80vh;
+        background: radial-gradient(circle at 50% 50%, var(--accent-glow) 0%, transparent 60%);
+        z-index: -1;
+        pointer-events: none;
       }
 
       a {
-        color: var(--accent);
+        color: var(--text);
         text-decoration: none;
+        border-bottom: 1px solid var(--line);
+        transition: border-color 0.3s ease, color 0.3s ease;
       }
 
-      a:hover { text-decoration: underline; }
+      a:hover {
+        color: var(--accent);
+        border-color: var(--accent);
+      }
 
       .wrap {
-        width: min(960px, calc(100% - 32px));
+        width: min(1000px, calc(100% - 48px));
         margin: 0 auto;
       }
 
-      .hero {
-        min-height: 70vh;
+      /* Header & Logo */
+      header {
+        padding: 40px 0 20px;
         display: flex;
         align-items: center;
-        padding: 72px 0 48px;
+        gap: 16px;
+      }
+
+      .logo-mark {
+        width: 44px;
+        height: 44px;
+      }
+
+      .hero {
+        min-height: 60vh;
+        display: flex;
+        align-items: center;
+        padding: 40px 0 64px;
       }
 
       .eyebrow {
         color: var(--muted);
         text-transform: uppercase;
-        letter-spacing: 0.14em;
-        font-size: 12px;
-        margin-bottom: 14px;
+        letter-spacing: 0.18em;
+        font-size: 13px;
+        margin-bottom: 24px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .eyebrow::before {
+        content: "";
+        display: inline-block;
+        width: 24px;
+        height: 1px;
+        background-color: var(--muted);
       }
 
       h1 {
-        font-size: clamp(42px, 8vw, 76px);
-        line-height: 0.95;
-        margin: 0 0 20px;
-        letter-spacing: -0.04em;
+        font-size: clamp(48px, 8vw, 82px);
+        line-height: 1.05;
+        margin: 0 0 24px;
+        letter-spacing: -0.03em;
+        font-weight: 600;
+        background: linear-gradient(180deg, #ffffff 0%, #a7b0ba 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
       }
 
       .lead {
-        font-size: clamp(18px, 2.5vw, 24px);
+        font-size: clamp(18px, 2.5vw, 22px);
         color: var(--muted);
         max-width: 720px;
-        margin: 0 0 28px;
+        margin: 0 0 48px;
+        font-weight: 400;
       }
 
       .grid {
         display: grid;
         grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 16px;
-        margin: 28px 0 0;
+        gap: 20px;
+        margin: 40px 0 0;
       }
 
       .card {
-        background: rgba(255,255,255,0.03);
+        background: var(--panel);
         border: 1px solid var(--line);
-        border-radius: 18px;
-        padding: 20px;
+        border-radius: 16px;
+        padding: 32px 28px;
+        transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        backdrop-filter: blur(10px);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), rgba(255,255,255,0.06), transparent 40%);
+        opacity: 0;
+        transition: opacity 0.4s;
+        z-index: 0;
+      }
+
+      .card:hover {
+        background: var(--panel-hover);
+        border-color: rgba(255, 255, 255, 0.2);
+        transform: translateY(-4px);
+      }
+
+      .card:hover::before {
+        opacity: 1;
+      }
+
+      .card > * {
+        position: relative;
+        z-index: 1;
+      }
+
+      .card svg {
+        margin-bottom: 20px;
+        color: var(--accent);
       }
 
       .card h3 {
-        margin: 0 0 8px;
-        font-size: 18px;
+        margin: 0 0 12px;
+        font-size: 19px;
+        font-weight: 500;
+        letter-spacing: -0.01em;
       }
 
       .card p {
         margin: 0;
         color: var(--muted);
+        font-size: 15px;
+        line-height: 1.5;
       }
 
       section {
-        padding: 28px 0 18px;
+        padding: 48px 0;
         border-top: 1px solid var(--line);
       }
 
       h2 {
-        font-size: 22px;
-        margin: 0 0 12px;
+        font-size: 26px;
+        margin: 0 0 20px;
         letter-spacing: -0.02em;
+        font-weight: 500;
       }
 
       .body-text {
         max-width: 760px;
         color: var(--muted);
-        font-size: 17px;
+        font-size: 18px;
+        line-height: 1.7;
       }
 
       .list {
         display: grid;
         grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 12px 20px;
+        gap: 16px 24px;
         padding: 0;
-        margin: 18px 0 0;
+        margin: 32px 0 0;
         list-style: none;
       }
 
       .list li {
-        padding: 14px 16px;
+        padding: 18px 24px;
         border: 1px solid var(--line);
-        border-radius: 14px;
-        background: rgba(255,255,255,0.02);
+        border-radius: 12px;
+        background: var(--panel);
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        transition: border-color 0.3s;
+      }
+
+      .list li:hover {
+        border-color: rgba(255, 255, 255, 0.15);
+      }
+
+      .list li::before {
+        content: "";
+        display: block;
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background-color: var(--accent);
       }
 
       footer {
-        padding: 36px 0 56px;
+        padding: 48px 0 72px;
         color: var(--muted);
         font-size: 14px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-top: 1px solid var(--line);
+        margin-top: 48px;
       }
 
-      @media (max-width: 760px) {
-        .grid, .list { grid-template-columns: 1fr; }
-        .hero { min-height: auto; padding-top: 56px; }
+      @media (max-width: 860px) {
+        .grid { grid-template-columns: 1fr; }
+        .list { grid-template-columns: 1fr; }
+        .hero { min-height: auto; padding: 48px 0; }
+        footer { flex-direction: column; align-items: flex-start; gap: 16px; }
       }
     </style>
   </head>
   <body>
+    <div class="bg-glow"></div>
+    
     <main class="wrap">
+      <header>
+        <svg class="logo-mark" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 52V20L32 38L52 12V52" stroke="url(#logo_grad)" stroke-width="4.5" stroke-miterlimit="10" stroke-linecap="square"/>
+          <path d="M52 52V26L32 12" stroke="rgba(255,255,255,0.2)" stroke-width="4.5" stroke-miterlimit="10" stroke-linecap="square"/>
+          <rect x="22" y="16" width="20" height="32" stroke="var(--accent)" stroke-width="2" opacity="0.4" stroke-dasharray="4 4"/>
+          <defs>
+            <linearGradient id="logo_grad" x1="12" y1="12" x2="52" y2="52" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#ffffff"/>
+              <stop offset="1" stop-color="#8a95a5"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      </header>
+
       <section class="hero" style="border-top: none;">
         <div>
           <div class="eyebrow">MRM Technologies</div>
-          <h1>AI, XR, and software for immersive and creative work.</h1>
+          <h1>Software, XR, and systems for immersive work.</h1>
           <p class="lead">
-            MRM Technologies builds software tools, intelligent workflows, and immersive applications
-            for digital products and future-facing experiences.
+            MRM Technologies builds software tools, intelligent workflows, and spatial applications 
+            that empower digital products and future-facing experiences.
           </p>
 
-          <div class="grid">
+          <div class="grid" id="cards">
             <div class="card">
-              <h3>AI Tools</h3>
-              <p>Systems and workflows that support creative production, automation, and intelligent interaction.</p>
-            </div>
-            <div class="card">
-              <h3>XR Experiences</h3>
-              <p>Interactive spatial applications across VR, AR, and mixed reality environments.</p>
-            </div>
-            <div class="card">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                <line x1="3" y1="9" x2="21" y2="9"></line>
+                <line x1="9" y1="21" x2="9" y2="9"></line>
+              </svg>
               <h3>Software Products</h3>
-              <p>Web, mobile, and experimental software for modern digital experiences.</p>
+              <p>Web, mobile, and scalable software architecture designed for modern digital experiences.</p>
+            </div>
+            <div class="card">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                <polyline points="2 17 12 22 22 17"></polyline>
+                <polyline points="2 12 12 17 22 12"></polyline>
+              </svg>
+              <h3>XR Experiences</h3>
+              <p>Interactive spatial applications bridging the gap between physical and digital environments.</p>
+            </div>
+            <div class="card">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="16" x2="12" y2="12"></line>
+                <line x1="12" y1="8" x2="12.01" y2="8"></line>
+              </svg>
+              <h3>Intelligent Tools</h3>
+              <p>Systems and workflows that leverage computation to support creative production and human agency.</p>
             </div>
           </div>
         </div>
@@ -169,32 +319,46 @@
       <section>
         <h2>About</h2>
         <p class="body-text">
-          We work at the intersection of software, immersive media, and intelligent systems. Our focus
-          is on building tools and products that make digital creation, interaction, and exploration more intuitive.
+          We work at the intersection of software, immersive media, and intelligent systems. 
+          Our focus is on building tools and products that empower human agency, making digital creation, 
+          interaction, and exploration more intuitive and technically leveraged.
         </p>
       </section>
 
       <section>
         <h2>What We Build</h2>
         <ul class="list">
-          <li>AI-powered creative tools</li>
-          <li>XR and immersive applications</li>
-          <li>Software for web and mobile platforms</li>
-          <li>Experimental product prototypes</li>
+          <li>Scalable web and mobile applications</li>
+          <li>XR and immersive spatial prototypes</li>
+          <li>Intelligent workflows for creative tools</li>
+          <li>Experimental technical products</li>
         </ul>
       </section>
 
       <section>
         <h2>Contact</h2>
         <p class="body-text">
-          For inquiries, collaborations, or product updates, contact:
-          <a href="mailto:vj.liu@outlook.com">hello@mrmtechnologies.com</a>
+          For inquiries, collaborations, or product updates, please reach out to: <br>
+          <a href="mailto:hello@mrmtechnologies.com" style="margin-top: 8px; display: inline-block;">hello@mrmtechnologies.com</a>
         </p>
       </section>
 
       <footer>
-        © 2026 MRM Technologies LLC. Website under development.
+        <span>© 2026 MRM Technologies LLC. All rights reserved.</span>
+        <span>Website under development.</span>
       </footer>
     </main>
+
+    <script>
+      document.getElementById("cards").onmousemove = e => {
+        for(const card of document.getElementsByClassName("card")) {
+          const rect = card.getBoundingClientRect(),
+                x = e.clientX - rect.left,
+                y = e.clientY - rect.top;
+          card.style.setProperty("--mouse-x", `${x}px`);
+          card.style.setProperty("--mouse-y", `${y}px`);
+        };
+      }
+    </script>
   </body>
 </html>
